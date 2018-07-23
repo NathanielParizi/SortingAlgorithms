@@ -62,8 +62,8 @@ public class SortingTester {
 		
 		
 		//******************************* Radix Sort on String with different lengths *********
-		String[] dls = new String[]{"biyee", "auzagea", "csxeateat", "caza"};
-		System.out.println("     Without Sort: " + Arrays.toString(dls) + "\n");
+		String[] dls = new String[]{"zlri", "tbcfg", "gbcdef", "xoenrbizxa"};
+		System.out.println("     Unsorted Array: " + Arrays.toString(dls) + "\n");
 		SortingMethods.radixSortDifferentLength(dls);
 		System.out.println("     Radix Sorted: " + Arrays.toString(dls) + "\n");
 	}

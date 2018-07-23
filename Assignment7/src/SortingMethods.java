@@ -1,10 +1,10 @@
+
 //================================
 //CSCI3200_DA_3409_Summer2018
 //Nathaniel Parizi
 //Assignment 7 (CH7)
 //Problem 2 
 //================================
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -279,45 +279,73 @@ public class SortingMethods {
 			buckets[i] = new ArrayList<>();
 		}
 
-		// find String with largest length of characters for buckets
+		// find String with largest length of characters
 		for (String str : arr) {
-			if (maxLength <= str.length()) {
+			if (maxLength < str.length()) {
 				maxLength = str.length();
 				// System.out.println(str.toString() + " max length: " + maxLength);
 			}
 		}
 
 		// loop from end of string to beginning to properly sort
-		for (int i = arr.length - 1; i >= 0; i--) {
+		for (int currChar = maxLength - 1; currChar >= 0; currChar--) {
 
 			// System.out.println(arr[i]);
 
-			for (int currChar = 0; currChar < arr.length; currChar++) {
+			for (int i = 0; arr.length > i; i++) {
 
-				buckets[0].add(arr[currChar]);
-				buckets[arr[currChar].charAt(i)].add(arr[currChar]);
+				try {
 
-				if (buckets[0] == null) {
-					buckets[0] = new ArrayList();
-				}
-				if (buckets[arr[currChar].charAt(i)] == null) {
-					buckets[arr[currChar].charAt(i)] = new ArrayList();
+					if (!buckets[arr[i].charAt(currChar)].contains(arr[i])
+							&& buckets[arr[i].charAt(currChar)] != null) {
+
+						buckets[arr[i].charAt(currChar)].add(arr[i]);
+					}
+
+					if (buckets[arr[i].charAt(currChar)] == null) {
+						buckets[arr[i].charAt(currChar)] = new ArrayList<>();
+					}
+
+				} catch (Exception e) {
+
+					// System.out.println(e);
+					buckets[0].add(arr[i]);
+					if (buckets[0] == null) {
+						buckets[0] = new ArrayList<>();
+					}
+
 				}
 
 			}
 
-			for (int pos = 0; pos < buckets.length; pos++) {
-				for (int ii = 0; ii <= buckets[pos].size() - 1 && buckets[pos] != null; ii++) {
-					arr[ii] = buckets[pos].get(ii);
+			// loop through buckets
+			for (int ii = 0, pos = 0; ii < buckets.length; ii++) {
+
+				int posSize = buckets[ii].size();
+
+				for (int j = 0; j < posSize; j++)
+
+				{
+
+					if (buckets[ii] != null) {
+						// put each item from the bucket into original array
+						arr[pos] = buckets[ii].get(j);
+						pos++;
+					}
+
 				}
-				// clear bucket
-				if (buckets[pos] != null) {
-					buckets[pos].clear();
+
+				if (buckets[ii] != null) {
+					buckets[ii].clear();
+
 				}
 
 			}
 
 		}
+
+		// System.out.println("*************************\nFinal output Radix Sorted
+		// different length:\n\t" + Arrays.toString(arr));
 
 	}
 }
